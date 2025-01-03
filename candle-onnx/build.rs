@@ -1,6 +1,8 @@
-use std::io::Result;
+// use prost_build_config::{BuildConfig, Builder};
 
-fn main() -> Result<()> {
-    prost_build::compile_protos(&["src/onnx.proto3"], &["src/"])?;
-    Ok(())
-}
+// fn main() {
+//     let config: BuildConfig = serde_yaml::from_str(include_str!("build_config.yml")).unwrap();
+//     Builder::from(config).build_protos();
+// }
+
+fn main() {}
