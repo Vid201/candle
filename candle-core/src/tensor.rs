@@ -5,6 +5,7 @@ use crate::op::{BackpropOp, BinaryOp, CmpOp, Op, ReduceOp, UnaryOp};
 use crate::scalar::TensorOrScalar;
 use crate::shape::{Dim, Dims};
 use crate::{bail, storage::Storage, DType, Device, Error, Layout, Result, Shape};
+use serde::{Deserialize, Serialize, Serializer};
 use std::sync::{Arc, RwLock};
 
 /// Unique identifier for tensors.
@@ -66,6 +67,53 @@ impl AsRef<Tensor> for Tensor {
 ///
 /// Tensors are reference counted with [`Arc`] so cloning them is cheap.
 pub struct Tensor(Arc<Tensor_>);
+
+#[derive(Serialize, Deserialize)]
+struct TensorSer {
+    dtype: DType,
+    device: Device,
+    shape: Shape,
+    data: Vec<f64>,
+}
+
+impl TensorSer {
+    pub fn from_tensor(tensor: &Tensor) -> Self {
+        Self {
+            dtype: tensor.dtype(),
+            device: tensor.device().clone(),
+            shape: tensor.shape().clone(),
+            data: tensor.flatten_all().unwrap().to_vec1::<f64>().unwrap(),
+        }
+    }
+}
+
+impl Serialize for Tensor {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let ser = TensorSer::from_tensor(self);
+        ser.serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for Tensor {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Tensor, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let ser = TensorSer::deserialize(deserializer)?;
+        let data = ser.data;
+        let shape = ser.shape;
+        let dtype = ser.dtype;
+        let device = ser.device;
+        let tensor = Tensor::from_slice(&data, shape, &device)
+            .unwrap()
+            .to_dtype(dtype)
+            .unwrap();
+        Ok(tensor)
+    }
+}
 
 impl std::ops::Deref for Tensor {
     type Target = Tensor_;

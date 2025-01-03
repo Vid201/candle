@@ -1,8 +1,9 @@
 #![allow(dead_code)]
 use crate::op::{BinaryOpT, CmpOp, ReduceOp, UnaryOpT};
 use crate::{CpuStorage, DType, Error, Layout, Result, Shape};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MetalDevice;
 
 #[derive(Debug)]

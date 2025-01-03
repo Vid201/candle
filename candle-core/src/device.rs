@@ -1,6 +1,7 @@
 use crate::backend::BackendDevice;
 use crate::cpu_backend::CpuDevice;
 use crate::{CpuStorage, DType, Result, Shape, Storage, WithDType};
+use serde::{Deserialize, Serialize};
 
 /// A `DeviceLocation` represents a physical device whereas multiple `Device`
 /// can live on the same location (typically for cuda devices).
@@ -12,7 +13,7 @@ pub enum DeviceLocation {
 }
 
 /// Cpu, Cuda, or Metal
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum Device {
     Cpu,
     Cuda(crate::CudaDevice),
