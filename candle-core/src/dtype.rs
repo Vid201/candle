@@ -5,7 +5,7 @@ use crate::cpu::kernels::VecOps;
 use crate::{CpuStorage, CpuStorageRef, Error, Result};
 
 /// The different types of elements allowed in tensors.
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum DType {
     // Floating-point 8 bits integer (4-bit exponent, 3-bit mantissa).
     F8E4M3,
@@ -178,6 +178,7 @@ macro_rules! with_dtype {
 }
 use float8::F8E4M3;
 use half::{bf16, f16};
+use serde::{Deserialize, Serialize};
 
 with_dtype!(u8, U8, |v: f64| v as u8, |v: u8| v as f64);
 with_dtype!(u32, U32, |v: f64| v as u32, |v: u32| v as f64);
