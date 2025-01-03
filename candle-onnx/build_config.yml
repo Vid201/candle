@@ -1,0 +1,110 @@
+---
+includes: ["src/"]
+files: ["src/onnx.proto3"]
+messages:
+  - paths: [onnx.AttributeProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.ValueInfoProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.NodeProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TrainingInfoProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.ModelProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.StringStringEntryProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TensorAnnotation]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.GraphProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TensorProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TensorProto.Segment]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.SparseTensorProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TensorShapeProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TensorShapeProto.Dimension]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto.Tensor]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto.Sequence]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto.Map]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto.Optional]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.TypeProto.SparseTensor]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.FunctionProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+  - paths: [onnx.OperatorSetIdProto]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+enums:
+  - paths: [onnx.Version]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+  - paths: [onnx.AttributeProto.AttributeType]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+  - paths: [onnx.TensorProto.DataType]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+  - paths: [onnx.TensorProto.DataLocation]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+  - paths: [onnx.OperatorSetIdProto.OperatorStatus]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+
