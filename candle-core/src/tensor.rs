@@ -82,7 +82,13 @@ impl TensorSer {
             dtype: tensor.dtype(),
             device: tensor.device().clone(),
             shape: tensor.shape().clone(),
-            data: tensor.flatten_all().unwrap().to_vec1::<f64>().unwrap(),
+            data: tensor
+                .flatten_all()
+                .unwrap()
+                .to_dtype(DType::F64)
+                .unwrap()
+                .to_vec1::<f64>()
+                .unwrap(),
         }
     }
 }
