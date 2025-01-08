@@ -6,6 +6,7 @@ use crate::scalar::TensorOrScalar;
 use crate::shape::{Dim, Dims};
 use crate::{bail, storage::Storage, DType, Device, Error, Layout, Result, Shape};
 use serde::{Deserialize, Serialize, Serializer};
+use std::hash::Hasher;
 use std::sync::{Arc, RwLock};
 
 /// Unique identifier for tensors.
@@ -67,6 +68,21 @@ impl AsRef<Tensor> for Tensor {
 ///
 /// Tensors are reference counted with [`Arc`] so cloning them is cheap.
 pub struct Tensor(Arc<Tensor_>);
+
+impl std::hash::Hash for Tensor {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.flatten_all()
+            .unwrap()
+            .to_dtype(DType::F64)
+            .unwrap()
+            .to_vec1::<f64>()
+            .unwrap()
+            .iter()
+            .map(|v| v.to_bits())
+            .collect::<Vec<_>>()
+            .hash(state);
+    }
+}
 
 #[derive(Serialize, Deserialize)]
 struct TensorSer {
